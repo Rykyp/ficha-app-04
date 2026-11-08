@@ -183,13 +183,50 @@ def opcion_7_tipos() -> None:
 
 
 def opcion_8_redondeo() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Compara el redondeo estándar con el redondeo ROUND_HALF_UP."""
+    media_exacta = ESTRELLAS / VALORACIONES
+    decimal_media = Decimal(str(media_exacta))
+
+    redondeo_python_1 = round(media_exacta, 1)
+    redondeo_escolar_1 = decimal_media.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
+
+    redondeo_python_2 = round(media_exacta, 2)
+    redondeo_escolar_2 = decimal_media.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+    print(formatear_fila("Valor exacto:", f"{media_exacta:.2f}"))
+    print(formatear_fila("round(), 1 dec.:", f"{redondeo_python_1:.1f}"))
+    print(formatear_fila("Escolar, 1 dec.:", f"{redondeo_escolar_1:.1f}"))
+    print(formatear_fila("round(), 2 dec.:", f"{redondeo_python_2:.2f}"))
+    print(formatear_fila("Escolar, 2 dec.:", f"{redondeo_escolar_2:.2f}"))
 
 
 def opcion_9_ficha() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Imprime la ficha completa reutilizando las opciones anteriores."""
+    linea_doble = "=" * ANCHO
+    linea_simple = "-" * ANCHO
+    
+    # Calculamos espacios para centrar el título a mano, sin usar .center()
+    titulo = "FICHA DE LA APLICACIÓN"
+    espacios_titulo = (ANCHO - len(titulo)) // 2
+    
+    print(linea_doble)
+    print(" " * espacios_titulo + titulo)
+    print(linea_doble)
+    
+    opcion_1_identificacion()
+    print(linea_simple)
+    
+    print("TAMAÑO DEL APK")
+    opcion_2_tamano()
+    print(linea_simple)
+    
+    print("INGRESOS")
+    opcion_3_ingresos()
+    print(linea_simple)
+    
+    print("VERSIONCODE")
+    opcion_4_version()
+    print(linea_doble)
 
 
 def opcion_10_acerca_de() -> None:
