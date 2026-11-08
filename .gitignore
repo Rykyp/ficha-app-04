@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Entorno virtual: se regenera con python3 -m venv .venv
 .venv/
 
@@ -7,4 +8,8 @@ __pycache__/
 
 # Configuración de los IDE
 .idea/
+=======
+venv/
+__pycache__/
+>>>>>>> 634b95c41aff74b79103a9b641e567dd52c84cbc
 .vscode/
