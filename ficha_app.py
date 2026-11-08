@@ -30,6 +30,10 @@ PENDIENTE: Final[str] = "  (opción pendiente de implementar)"
 # ---------------------------------------------------------------------------
 # Constantes de la pareja. Todo valor fijo del programa va aquí, con nombre.
 # ---------------------------------------------------------------------------
+DESPLAZAMIENTO_MENOR: Final[int] = 8
+DESPLAZAMIENTO_MAYOR: Final[int] = 16
+MASCARA_BYTE: Final[int] = 0xFF
+
 ANCHO: Final[int] = 48
 
 BYTES_MB: Final[int] = 10**6
@@ -91,13 +95,46 @@ def opcion_3_ingresos() -> None:
 
 
 def opcion_4_version() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Empaqueta y desempaqueta el versionCode con operadores de bit."""
+    version_empaquetada = (
+        (VERSION_MAYOR << DESPLAZAMIENTO_MAYOR) 
+        | (VERSION_MENOR << DESPLAZAMIENTO_MENOR) 
+        | VERSION_PARCHE
+    )
+    
+    desempaquetado_mayor = (version_empaquetada >> DESPLAZAMIENTO_MAYOR) & MASCARA_BYTE
+    desempaquetado_menor = (version_empaquetada >> DESPLAZAMIENTO_MENOR) & MASCARA_BYTE
+    desempaquetado_parche = version_empaquetada & MASCARA_BYTE
+    
+    version_restaurada = f"{desempaquetado_mayor}.{desempaquetado_menor}.{desempaquetado_parche}"
+    
+    print(formatear_fila("Versión:", f"{VERSION_MAYOR}.{VERSION_MENOR}.{VERSION_PARCHE}"))
+    print(formatear_fila("versionCode:", str(version_empaquetada)))
+    print(formatear_fila("En hexadecimal:", f"0x{version_empaquetada:06X}"))
+    print(formatear_fila("Desempaquetado:", version_restaurada))
 
 
 def opcion_5_permisos() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Evalúa los permisos asignados utilizando máscaras binarias."""
+    tiene_internet = (PERMISOS & PERMISO_INTERNET) != 0
+    tiene_notificaciones = (PERMISOS & PERMISO_NOTIFICACIONES) != 0
+    tiene_camara = (PERMISOS & PERMISO_CAMARA) != 0
+    tiene_ubicacion = (PERMISOS & PERMISO_UBICACION) != 0
+    tiene_contactos = (PERMISOS & PERMISO_CONTACTOS) != 0
+    tiene_microfono = (PERMISOS & PERMISO_MICROFONO) != 0
+    tiene_almacenamiento = (PERMISOS & PERMISO_ALMACENAMIENTO) != 0
+
+    permisos_sin_ubicacion = PERMISOS & ~PERMISO_UBICACION
+    
+    print(formatear_fila("En binario:", f"{PERMISOS:07b}"))
+    print(formatear_fila("Internet:", str(tiene_internet)))
+    print(formatear_fila("Notificaciones:", str(tiene_notificaciones)))
+    print(formatear_fila("Cámara:", str(tiene_camara)))
+    print(formatear_fila("Ubicación:", str(tiene_ubicacion)))
+    print(formatear_fila("Contactos:", str(tiene_contactos)))
+    print(formatear_fila("Micrófono:", str(tiene_microfono)))
+    print(formatear_fila("Almacenamiento:", str(tiene_almacenamiento)))
+    print(formatear_fila("Sin ubicación:", f"{permisos_sin_ubicacion:07b}"))
 
 
 def opcion_6_color() -> None:
