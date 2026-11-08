@@ -138,13 +138,48 @@ def opcion_5_permisos() -> None:
 
 
 def opcion_6_color() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Descompone el color ARGB en canales decimal, binario, hex y CSS."""
+    # Las constantes DESPLAZAMIENTO_ROJO, VERDE y AZUL se asumen locales a esta función 
+    # o reutilizan DESPLAZAMIENTO_MENOR/MAYOR que dejó tu compañero.
+    canal_alfa = (COLOR_ICONO >> 24) & MASCARA_BYTE
+    canal_rojo = (COLOR_ICONO >> DESPLAZAMIENTO_MAYOR) & MASCARA_BYTE
+    canal_verde = (COLOR_ICONO >> DESPLAZAMIENTO_MENOR) & MASCARA_BYTE
+    canal_azul = COLOR_ICONO & MASCARA_BYTE
+
+    opacidad_porcentaje = (canal_alfa / 255) * 100
+    color_css = f"#{canal_rojo:02X}{canal_verde:02X}{canal_azul:02X}"
+
+    desglose_rojo = f"{canal_rojo:>3}  {canal_rojo:08b}  {canal_rojo:02X}"
+    desglose_verde = f"{canal_verde:>3}  {canal_verde:08b}  {canal_verde:02X}"
+    desglose_azul = f"{canal_azul:>3}  {canal_azul:08b}  {canal_azul:02X}"
+
+    print(formatear_fila("ARGB:", f"0x{COLOR_ICONO:08X}"))
+    print(formatear_fila("Rojo:", desglose_rojo))
+    print(formatear_fila("Verde:", desglose_verde))
+    print(formatear_fila("Azul:", desglose_azul))
+    print(formatear_fila("Opacidad:", f"{opacidad_porcentaje:.1f}%"))
+    print(formatear_fila("Para CSS:", color_css))
 
 
 def opcion_7_tipos() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Muestra el tipo y valor de variables directas e intermedias."""
+    media_valoracion = ESTRELLAS / VALORACIONES
+    pide_camara = (PERMISOS & PERMISO_CAMARA) != 0
+    texto_descargas = str(DESCARGAS)
+    
+    version_empaquetada = (
+        (VERSION_MAYOR << DESPLAZAMIENTO_MAYOR) 
+        | (VERSION_MENOR << DESPLAZAMIENTO_MENOR) 
+        | VERSION_PARCHE
+    )
+
+    print(f"NOMBRE:          {type(NOMBRE)}  {NOMBRE}")
+    print(f"DESCARGAS:       {type(DESCARGAS)}  {DESCARGAS}")
+    print(f"PRECIO:          {type(PRECIO)}  {PRECIO}")
+    print(f"media:           {type(media_valoracion)}  {media_valoracion:.2f}")
+    print(f"pide_camara:     {type(pide_camara)}  {pide_camara}")
+    print(f"texto_descargas: {type(texto_descargas)}  {texto_descargas}")
+    print(f"codigo:          {type(version_empaquetada)}  {version_empaquetada}")
 
 
 def opcion_8_redondeo() -> None:
