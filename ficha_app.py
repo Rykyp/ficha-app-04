@@ -230,8 +230,14 @@ def opcion_9_ficha() -> None:
 
 
 def opcion_10_acerca_de() -> None:
-    """[Docstring: qué hace esta opción.]"""
-    print(PENDIENTE)
+    """Muestra la información del módulo, autores y versión de Python."""
+    docstring_modulo = (__doc__ or "").strip().split('\n')[0]
+    version_py = sys.version.split()[0]
+
+    print(docstring_modulo)
+    print(formatear_fila("Versión del programa:", VERSION_PROGRAMA))
+    print(formatear_fila("Autores:", AUTORES))
+    print(formatear_fila("Versión de Python:", version_py))
 
 
 # ---------------------------------------------------------------------------
