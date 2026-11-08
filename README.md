@@ -25,4 +25,4 @@ varias comprobaciones sobre tipos y redondeo.
 No hace falta descargar el repositorio ni tener Python instalado. Solo Docker.
 
 ```bash
-docker run --rm Rykyp/ficha-app-xx:1.0.0
+docker run --rm Rykyp/ficha-app-04:1.0.0
